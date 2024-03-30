@@ -1,3 +1,5 @@
+
+
 ## 系统相关
 
 ### 环境变量操作
@@ -8,12 +10,12 @@
 
 ```go
 func TestEnv(t *testing.T) {
-SetEnvQuiet("key2", "pleuvoir")
-env := GetEnv("key2")
-t.Logf(env)
+	SetEnvQuiet("key2", "pleuvoir")
+	env := GetEnv("key2")
+	t.Logf(env)
 
-envOrDefault := GetEnvOrDefault("key", "default-key-value")
-t.Log(envOrDefault)
+	envOrDefault := GetEnvOrDefault("key", "default-key-value")
+	t.Log(envOrDefault)
 }
 ```
 
@@ -24,6 +26,7 @@ os_test.go:24: pleuvoir
 os_test.go:27: default-key-value
 ```
 
+
 ### 系统目录相关
 
 - GetWdQuiet 安静的获取当前目录
@@ -33,26 +36,26 @@ os_test.go:27: default-key-value
 ```go
 
 func TestGetWdQuiet(t *testing.T) {
-dir := GetWdQuiet()
-t.Log(dir)
+	dir := GetWdQuiet()
+	t.Log(dir)
 }
 
 ```
 
 输出：
-
 ```
 /Users/pleuvoir/dev/space/git/gamine/helper/helper_os
 ```
+
 
 - FileExists 判断文件是否存在
 
 ```go
 func TestFileExists(t *testing.T) {
-filePath := path.Join(GetWdQuiet(), "os.go")
-t.Log(filePath)
-exists := FileExists(filePath)
-t.Log(exists)
+	filePath := path.Join(GetWdQuiet(), "os.go")
+	t.Log(filePath)
+	exists := FileExists(filePath)
+	t.Log(exists)
 }
 ```
 
@@ -62,6 +65,7 @@ t.Log(exists)
 /Users/pleuvoir/dev/space/git/gamine/helper/helper_os/os.go
 true
 ```
+
 
 ### 文件相关
 
