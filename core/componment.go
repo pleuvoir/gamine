@@ -4,21 +4,21 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type Component interface {
+type IComponent interface {
 	Run() error
 	GetName() string
 }
 
-var components = make(map[string]Component)
+var components = make(map[string]IComponent)
 
-func LoadComponents(instances ...Component) {
+func LoadComponents(instances ...IComponent) {
 	for _, c := range instances {
 		LoadComponent(c)
 	}
 }
 
 // LoadComponent 加载组件，外部可以传入组件空结构体，会从配置文件中自动映射到组件中
-func LoadComponent(c Component) {
+func LoadComponent(c IComponent) {
 	if err := InjectComponentConfig(c.GetName(), c); err != nil {
 		panic(err)
 	}
@@ -28,14 +28,14 @@ func LoadComponent(c Component) {
 	components[c.GetName()] = c
 }
 
-func RunComponents(instances ...Component) {
+func RunComponents(instances ...IComponent) {
 	for _, c := range instances {
 		components[c.GetName()] = c
 		c.Run()
 	}
 }
 
-func LoadComponentFromYaml(c Component, content []byte) error {
+func LoadComponentFromYaml(c IComponent, content []byte) error {
 	err := yaml.Unmarshal(content, c)
 	if err != nil {
 		return err

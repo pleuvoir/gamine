@@ -1,4 +1,4 @@
-package os
+package helper_os
 
 import (
 	"os"

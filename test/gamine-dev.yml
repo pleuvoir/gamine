@@ -1,0 +1,32 @@
+hello:
+  message: "hello gamine"
+  version: 1.1
+
+
+event-engine:
+  event-configs:
+    main:
+      debug-log: true
+      every-event-queue-size: 100
+      event-type: [ "Log","Tick","Bar","Trade","Order","Asset","Position","Contract","Account","Algo","Error" ]
+    timer:
+      debug-log: true
+      enable-timer: true
+      timer-duration-second: 1
+      timer-queue-size: 1000
+
+
+log-engine:
+  log-configs:
+    default:
+      level: info
+      path: '/Users/pleuvoir/dev/space/git/gamine/test/test_data/'
+      filename: default
+      maxAge: 1440h
+      rotationTime: 24h
+    bak:
+      level: info
+      path: '/Users/pleuvoir/dev/space/git/gamine/test/test_data/'
+      filename: bak
+      maxAge: 1440h
+      rotationTime: 24h
