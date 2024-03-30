@@ -30,8 +30,8 @@ func GetWdQuiet() (dir string) {
 }
 
 // FileExists 文件是否存在
-func FileExists(filename string) bool {
-	info, err := os.Stat(filename)
+func FileExists(filePath string) bool {
+	info, err := os.Stat(filePath)
 	if os.IsNotExist(err) {
 		return false
 	}

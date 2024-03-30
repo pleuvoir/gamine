@@ -10,4 +10,7 @@
 - [event-engine事件引擎](https://github.com/pleuvoir/gamine/blob/main/docs/event-engine.md)
 
 
+## 工具函数
 
+- [helper_config 配置文件](https://github.com/pleuvoir/gamine/blob/main/docs/helper-config.md)
+- [helper_os 系统相关](https://github.com/pleuvoir/gamine/blob/main/docs/helper-os.md)
