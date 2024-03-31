@@ -1,4 +1,4 @@
-package help_config
+package helper_config
 
 import (
 	"fmt"
@@ -71,4 +71,30 @@ type Instance2 struct {
 
 type Item2 struct {
 	Alias string `yaml:"alias"`
+}
+
+func TestLoadYamlString(t *testing.T) {
+	if yamlString, err := ReadYamlString("/Users/pleuvoir/dev/space/git/gamine/test/gamine-dev.yml"); err == nil {
+		t.Log(yamlString)
+	}
+}
+
+type AppConfig struct {
+	App struct {
+		Port string `yaml:"port"`
+	} `yaml:"app"`
+}
+
+func TestServerWithConfig(t *testing.T) {
+	path := "/Users/pleuvoir/dev/space/git/gamine/test/restful.yml"
+	yamlString, _ := ReadYamlString(path)
+	t.Log(yamlString)
+
+	app := AppConfig{}
+	ParseYamlString2Struct(yamlString, &app)
+	t.Logf("%+v", app)
+
+	app2 := AppConfig{}
+	ParseYamlStringFromPath2Struct(path, &app2)
+	t.Logf("%+v", app2)
 }

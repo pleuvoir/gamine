@@ -100,3 +100,24 @@ func TestFileExists(t *testing.T) {
 /Users/pleuvoir/dev/space/git/gamine/helper/helper_os/os.go
 true
 ```
+
+
+- CloseQuietly 安静的调用Close()
+```go
+type closeImpl struct {
+}
+
+func (c *closeImpl) Close() error {
+	panic("implement me")
+}
+
+func TestCloseQuietly(t *testing.T) {
+	CloseQuietly(&closeImpl{})
+}
+```
+
+输出：
+
+```
+panic: implement me
+```

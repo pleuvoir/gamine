@@ -109,3 +109,51 @@ type Item2 struct {
 &{Items:map[default:{Alias:default} main:{Alias:main}]}
 &{Item2:map[default:{Alias:default} main:{Alias:main}]}
 ```
+
+### ReadYamlString 读取yml文件转换为字符串
+
+```go
+func TestLoadYamlString(t *testing.T) {
+	if yamlString, err := ReadYamlString("/Users/pleuvoir/dev/space/git/gamine/test/gamine-dev.yml"); err == nil {
+		t.Log(yamlString)
+	}
+}
+```
+
+输出：
+
+```yaml
+hello:
+  message: "hello gamine"
+  version: 1.1
+```
+
+
+### ParseYamlStringFromPath2Struct 从文件路径读取yaml字符串到结构体
+
+```yaml
+func TestServerWithConfig(t *testing.T) {
+	path := "/Users/pleuvoir/dev/space/git/gamine/test/restful.yml"
+	yamlString, _ := ReadYamlString(path)
+	t.Log(yamlString)
+
+	app := AppConfig{}
+	ParseYamlString2Struct(yamlString, &app)
+	t.Logf("%+v", app)
+
+	app2 := AppConfig{}
+	ParseYamlStringFromPath2Struct(path, &app2)
+	t.Logf("%+v", app2)
+}
+```
+
+输出：
+
+```
+config_test.go:92: app:
+      port: "8081"
+    
+    
+config_test.go:96: {App:{Port:8081}}
+config_test.go:101: {App:{Port:8081}}
+```

@@ -35,7 +35,7 @@ func RunComponents(instances ...IComponent) {
 	}
 }
 
-func LoadComponentFromYaml(c IComponent, content []byte) error {
+func RunComponentFromYaml(c IComponent, content []byte) error {
 	err := yaml.Unmarshal(content, c)
 	if err != nil {
 		return err

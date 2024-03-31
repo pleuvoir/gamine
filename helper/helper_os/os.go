@@ -1,6 +1,7 @@
 package helper_os
 
 import (
+	"io"
 	"os"
 	"path/filepath"
 )
@@ -58,4 +59,11 @@ func RootPath() (string, error) {
 		return "", err
 	}
 	return filepath.Dir(dir), nil
+}
+
+// CloseQuietly 安静的调用Close()
+func CloseQuietly(closer io.Closer) {
+	if closer != nil {
+		_ = closer.Close()
+	}
 }

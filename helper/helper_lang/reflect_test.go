@@ -2,7 +2,6 @@ package helper_lang
 
 import (
 	"fmt"
-	"reflect"
 	"testing"
 )
 
@@ -38,45 +37,5 @@ func TestMakeInstance(t *testing.T) {
 	t.Logf(fmt.Sprintf("%T", makeInstance))
 	if templateSub, ok := makeInstance.(TemplateSub); ok {
 		t.Logf(fmt.Sprintf("%T", templateSub))
-	}
-}
-
-func TestGetRealType1(t *testing.T) {
-	type args struct {
-		any interface{}
-	}
-	tests := []struct {
-		name string
-		args args
-		want reflect.Type
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := GetRealType(tt.args.any); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetRealType() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestMakeInstance1(t *testing.T) {
-	type args struct {
-		p reflect.Type
-	}
-	tests := []struct {
-		name string
-		args args
-		want any
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := MakeInstance(tt.args.p); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("MakeInstance() = %v, want %v", got, tt.want)
-			}
-		})
 	}
 }

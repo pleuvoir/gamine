@@ -51,3 +51,14 @@ func TestCurrentPath(t *testing.T) {
 func TestRootPath(t *testing.T) {
 	t.Log(RootPath())
 }
+
+type closeImpl struct {
+}
+
+func (c *closeImpl) Close() error {
+	panic("implement me")
+}
+
+func TestCloseQuietly(t *testing.T) {
+	CloseQuietly(&closeImpl{})
+}
