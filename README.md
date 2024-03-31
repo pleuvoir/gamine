@@ -14,6 +14,7 @@
 - [hello](https://github.com/pleuvoir/gamine/blob/main/docs/hello.md)
 - [log 多文件日志](https://github.com/pleuvoir/gamine/blob/main/docs/log.md)
 - [event-engine事件引擎](https://github.com/pleuvoir/gamine/blob/main/docs/event-engine.md)
+- [restful](https://github.com/pleuvoir/gamine/blob/main/docs/restful.md)
 
 
 ## 工具函数
