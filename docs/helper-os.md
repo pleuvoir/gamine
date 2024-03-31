@@ -48,6 +48,9 @@ func TestGetWdQuiet(t *testing.T) {
 ```
 
 
+
+### 文件相关
+
 - FileExists 判断文件是否存在
 
 ```go
@@ -64,10 +67,4 @@ func TestFileExists(t *testing.T) {
 ```
 /Users/pleuvoir/dev/space/git/gamine/helper/helper_os/os.go
 true
-```
-
-
-### 文件相关
-
-
 
