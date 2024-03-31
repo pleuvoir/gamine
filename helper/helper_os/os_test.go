@@ -39,3 +39,15 @@ func TestFileExists(t *testing.T) {
 	exists := FileExists(filePath)
 	t.Log(exists)
 }
+
+func TestCurrentPath(t *testing.T) {
+	currentPath, err := CurrentExecutePath()
+	if err != nil {
+		panic(err)
+	}
+	t.Log(currentPath)
+}
+
+func TestRootPath(t *testing.T) {
+	t.Log(RootPath())
+}

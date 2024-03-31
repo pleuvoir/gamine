@@ -2,6 +2,7 @@ package helper_os
 
 import (
 	"os"
+	"path/filepath"
 )
 
 // GetEnvOrDefault 获取环境变量，未获取到返回给定的默认值
@@ -39,4 +40,22 @@ func FileExists(filePath string) bool {
 		return false
 	}
 	return true
+}
+
+// CurrentExecutePath 获取当前的执行文件所在的目录
+func CurrentExecutePath() (string, error) {
+	dir, err := os.Executable()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Dir(dir), nil
+}
+
+// RootPath 获取项目根路径
+func RootPath() (string, error) {
+	dir, err := filepath.Abs("")
+	if err != nil {
+		return "", err
+	}
+	return filepath.Dir(dir), nil
 }

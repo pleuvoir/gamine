@@ -12,3 +12,6 @@ gamine.InstallComponents(log.&Instance{})
 
 框架会从`workDir`目录下，寻找`gamine.{envName}.yml` 文件，其中`envName`的可选值为：`dev prod`，当不设置`envName`时默认为`dev`。
 所有的组件都是一个单例对象，初始化完成后可在程序任意位置获取。
+
+
+以上，对组件的了解可以从 [hello](https://github.com/pleuvoir/gamine/blob/main/docs/hello.md) 开始。

@@ -47,7 +47,40 @@ func TestGetWdQuiet(t *testing.T) {
 /Users/pleuvoir/dev/space/git/gamine/helper/helper_os
 ```
 
+- CurrentExecutePath 获取当前的执行文件所在的目录
 
+```go
+func TestCurrentPath(t *testing.T) {
+	currentPath, err := CurrentExecutePath()
+	if err != nil {
+		panic(err)
+	}
+	t.Log(currentPath)
+}
+```
+
+输出：
+```
+/private/var/folders/b_/0j5tbqk55h9bstjczsrnbt000000gn/T/GoLand
+```
+
+
+- RootPath 获取项目根路径
+
+**注意：**   这个获取的实际上是`helper_os.go`文件所在文件的的根目录。因此，该函数的示例意义大于实际使用。
+
+
+```go
+func TestRootPath(t *testing.T) {
+	t.Log(RootPath())
+}
+```
+
+
+输出：
+```
+/Users/pleuvoir/dev/space/git/gamine/helper <nil>
+```
 
 ### 文件相关
 
@@ -63,8 +96,7 @@ func TestFileExists(t *testing.T) {
 ```
 
 输出：
-
 ```
 /Users/pleuvoir/dev/space/git/gamine/helper/helper_os/os.go
 true
-
+```
