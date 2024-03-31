@@ -131,19 +131,25 @@ hello:
 
 ### ParseYamlStringFromPath2Struct 从文件路径读取yaml字符串到结构体
 
-```yaml
+```go
+type AppConfig struct {
+    App struct {
+    Port string `yaml:"port"`
+    } `yaml:"app"`
+}
+
 func TestServerWithConfig(t *testing.T) {
-	path := "/Users/pleuvoir/dev/space/git/gamine/test/restful.yml"
-	yamlString, _ := ReadYamlString(path)
-	t.Log(yamlString)
+    path := "/Users/pleuvoir/dev/space/git/gamine/test/restful.yml"
+    yamlString, _ := ReadYamlString(path)
+    t.Log(yamlString)
 
-	app := AppConfig{}
-	ParseYamlString2Struct(yamlString, &app)
-	t.Logf("%+v", app)
+    app := AppConfig{}
+    ParseYamlString2Struct(yamlString, &app)
+    t.Logf("%+v", app)
 
-	app2 := AppConfig{}
-	ParseYamlStringFromPath2Struct(path, &app2)
-	t.Logf("%+v", app2)
+    app2 := AppConfig{}
+    ParseYamlStringFromPath2Struct(path, &app2)
+    t.Logf("%+v", app2)
 }
 ```
 
