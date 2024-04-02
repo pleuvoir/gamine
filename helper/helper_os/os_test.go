@@ -62,3 +62,7 @@ func (c *closeImpl) Close() error {
 func TestCloseQuietly(t *testing.T) {
 	CloseQuietly(&closeImpl{})
 }
+
+func TestWaitQuit(t *testing.T) {
+	WaitQuit()
+}

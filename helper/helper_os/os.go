@@ -3,7 +3,9 @@ package helper_os
 import (
 	"io"
 	"os"
+	"os/signal"
 	"path/filepath"
+	"syscall"
 )
 
 // GetEnvOrDefault 获取环境变量，未获取到返回给定的默认值
@@ -66,4 +68,11 @@ func CloseQuietly(closer io.Closer) {
 	if closer != nil {
 		_ = closer.Close()
 	}
+}
+
+// WaitQuit 同步阻塞等待退出
+func WaitQuit() {
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
 }

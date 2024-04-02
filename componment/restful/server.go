@@ -3,6 +3,7 @@ package restful
 import (
 	"context"
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/gookit/color"
 	"github.com/pleuvoir/gamine/helper/helper_lang"
@@ -88,6 +89,22 @@ func (e *Instance) WithUseRequestLog(log *logrus.Logger) {
 		// 日志格式
 		log.Infoln(fmt.Sprintf("| %3d | %13v | %15s | %s | %s", statusCode, latencyTime, clientIP, reqMethod, reqUri))
 	})
+}
+
+// WithCors 支持跨域所有格式
+func (e *Instance) WithCors() {
+	e.Gin.Use(cors.New(cors.Config{
+		AllowAllOrigins:        true,
+		AllowMethods:           []string{"*"},
+		AllowHeaders:           []string{"*"},
+		AllowCredentials:       false,
+		ExposeHeaders:          nil,
+		MaxAge:                 12 * time.Hour,
+		AllowWildcard:          false,
+		AllowBrowserExtensions: false,
+		AllowWebSockets:        false,
+		AllowFiles:             false,
+	}))
 }
 
 func (e *Instance) GetName() string {

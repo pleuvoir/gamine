@@ -121,3 +121,14 @@ func TestCloseQuietly(t *testing.T) {
 ```
 panic: implement me
 ```
+
+### 系统操作相关
+
+- WaitQuit 阻塞进程，等待退出信号
+
+```go
+func TestWaitQuit(t *testing.T) {
+    WaitQuit()
+}
+```
+

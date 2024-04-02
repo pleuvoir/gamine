@@ -51,3 +51,8 @@ func ToUint64(val string) (value uint64, err error) {
 	}
 	return u, nil
 }
+
+// IntToString int转为String
+func IntToString(number int) (value string) {
+	return strconv.Itoa(number)
+}

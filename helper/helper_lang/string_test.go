@@ -34,3 +34,7 @@ func TestToUint64(t *testing.T) {
 		t.Log(value)
 	}
 }
+
+func TestToString(t *testing.T) {
+	t.Log(IntToString(8080))
+}

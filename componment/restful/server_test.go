@@ -11,13 +11,14 @@ import (
 )
 
 func TestServer(t *testing.T) {
-	gamine.SetWorkDir("/Users/pleuvoir/dev/space/git/gamine/test")
+	gamine.SetWorkDir("../../test/")
 	gamine.SetEnvName("dev")
 	gamine.InstallComponents(&log.Instance{})
 	server := NewRestServer("8001")
 	server.WithServerStartedListener(func(engine *Instance) {
 		t.Log("启动了" + engine.port)
 	})
+	server.WithCors()
 	server.WithUseRequestLog(log.GetDefault())
 	server.WithGinConfig(func(e *gin.Engine) {
 		index := e.Group("/")

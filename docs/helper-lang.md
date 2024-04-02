@@ -52,6 +52,13 @@ func TestIf(t *testing.T) {
 }
 ```
 
+输出：
+
+```
+//12或者13
+```
+
+
 - ToUint64
 
 ```go
@@ -81,11 +88,24 @@ func TestToFloat64(t *testing.T) {
 ```
 
 输出：
-```go
+```
 3.14
 ```
 
-输出：12或者13
+
+- IntToString int转为String
+
+```go
+func TestToString(t *testing.T) {
+	t.Log(IntToString(8080))
+}
+```
+
+输出：
+```
+8080
+```
+
 
 ### 反射操作
 
