@@ -138,15 +138,15 @@ func (e *Instance) startServer(serv *http.Server) {
 
 // listenServerStarted 启动监听，在服务启动时检测http服务监听的端口
 func (e *Instance) listenServerStarted() {
-	if e.serverStartedListener == nil {
-		return
-	}
+
 	go func() {
 		<-e.startedChan
 		if e.testPortRetry() {
 			e.State = ServerStarted
 			color.Greenln(fmt.Sprintf("restful服务已启动 @%s", e.Port))
-			e.serverStartedListener(e)
+			if e.serverStartedListener != nil {
+				e.serverStartedListener(e)
+			}
 		}
 	}()
 }
