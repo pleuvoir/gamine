@@ -16,6 +16,7 @@
 - [event-engine事件引擎](https://github.com/pleuvoir/gamine/blob/main/docs/event-engine.md)
 - [restful](https://github.com/pleuvoir/gamine/blob/main/docs/restful.md)
 - [socket-io](https://github.com/pleuvoir/gamine/blob/main/docs/socket-io.md)
+- [sqlite](https://github.com/pleuvoir/gamine/blob/main/docs/sqlite.md)
 
 
 ## 工具函数

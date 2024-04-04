@@ -66,3 +66,7 @@ func TestCloseQuietly(t *testing.T) {
 func TestWaitQuit(t *testing.T) {
 	WaitQuit()
 }
+
+func TestAbs(t *testing.T) {
+	t.Log(Abs("../test"))
+}

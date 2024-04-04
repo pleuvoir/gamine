@@ -30,3 +30,5 @@ log-engine:
       maxAge: 1440h
       rotationTime: 24h
 
+sqlite:
+  path: '../../test/test_data/sqlite-yml.db'

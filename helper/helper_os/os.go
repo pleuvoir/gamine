@@ -27,7 +27,7 @@ func SetEnvQuiet(key, value string) {
 	_ = os.Setenv(key, value)
 }
 
-// GetWdQuiet 安静的获取工作目录
+// GetWdQuiet 安静的获取工作目录 （示例）
 func GetWdQuiet() (dir string) {
 	dir, _ = os.Getwd()
 	return dir
@@ -54,13 +54,21 @@ func CurrentExecutePath() (string, error) {
 	return filepath.Dir(dir), nil
 }
 
-// RootPath 获取项目根路径
+// RootPath 获取项目根路径 （示例）
 func RootPath() (string, error) {
 	dir, err := filepath.Abs("")
 	if err != nil {
 		return "", err
 	}
 	return filepath.Dir(dir), nil
+}
+
+// Abs 获取绝对路径 （示例）
+func Abs(path string) string {
+	if abs, err := filepath.Abs(path); err == nil {
+		return abs
+	}
+	return path
 }
 
 // CloseQuietly 安静的调用Close()

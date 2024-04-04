@@ -82,6 +82,28 @@ func TestRootPath(t *testing.T) {
 /Users/pleuvoir/dev/space/git/gamine/helper <nil>
 ```
 
+
+- Abs 获取绝对路径
+
+获取失败时，返回原来输入的相对路径
+
+**注意：**   这个获取的实际上是以`helper_os.go`文件计算推导出的路径。因此，该函数的示例意义大于实际使用。
+
+
+```go
+func TestAbs(t *testing.T) {
+	t.Log(Abs("../test"))
+}
+```
+
+输出：
+
+```
+/Users/pleuvoir/dev/space/git/gamine/helper/test
+```
+
+
+
 ### 文件相关
 
 - FileExists 判断文件是否存在

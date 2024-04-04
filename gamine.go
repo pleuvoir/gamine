@@ -8,7 +8,18 @@ import (
 	"path/filepath"
 )
 
-func Init() {
+// InstallComponents 安装，运行组件，该方法只应该被调用一次
+func InstallComponents(instances ...core.IComponent) {
+	initConfig()
+	core.LoadComponents(instances...)
+}
+
+// RunComponents 运行组件，适用于无需加载配置文件的场景，无需调用 InstallComponents
+func RunComponents(instances ...core.IComponent) {
+	core.RunComponents(instances...)
+}
+
+func initConfig() {
 
 	//当前环境 开发、线上
 	core.EnvName = helper_os.GetEnvOrDefault(core.GamineEnv, core.Dev)
@@ -37,17 +48,6 @@ func Init() {
 		panic(err)
 	}
 
-}
-
-// InstallComponents 安装，运行组件，该方法只应该被调用一次
-func InstallComponents(instances ...core.IComponent) {
-	Init()
-	core.LoadComponents(instances...)
-}
-
-// RunComponents 运行组件，适用于无需加载配置文件的场景，无需调用 InstallComponents
-func RunComponents(instances ...core.IComponent) {
-	core.RunComponents(instances...)
 }
 
 func SetWorkDir(dir string) {
