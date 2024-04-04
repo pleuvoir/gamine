@@ -3,8 +3,8 @@ package test
 import (
 	"fmt"
 	"github.com/pleuvoir/gamine"
-	"github.com/pleuvoir/gamine/componment/hello"
-	"github.com/pleuvoir/gamine/componment/log"
+	"github.com/pleuvoir/gamine/component/hello"
+	"github.com/pleuvoir/gamine/component/log"
 	"testing"
 )
 
