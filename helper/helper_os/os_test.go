@@ -52,6 +52,15 @@ func TestRootPath(t *testing.T) {
 	t.Log(RootPath())
 }
 
+func TestChdirQuietly(t *testing.T) {
+	t.Log(GetWdQuiet())
+	ChdirQuietly("../helper_lang") //切换到上一级
+	t.Log(GetWdQuiet())
+	ChdirQuietly("../") //切换到上一级
+	t.Log(GetWdQuiet())
+	t.Log(RootPath())
+}
+
 type closeImpl struct {
 }
 
@@ -69,4 +78,12 @@ func TestWaitQuit(t *testing.T) {
 
 func TestAbs(t *testing.T) {
 	t.Log(Abs("../test"))
+}
+
+func TestFolderExists(t *testing.T) {
+	t.Log(FolderExists("../../"))
+}
+
+func TestGetHomeDir(t *testing.T) {
+	t.Log(GetHomeDir())
 }

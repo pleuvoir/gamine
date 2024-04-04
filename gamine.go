@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"github.com/pleuvoir/gamine/core"
-	"github.com/pleuvoir/gamine/helper/helper_os"
+	"os"
 	"path/filepath"
 )
 
@@ -22,25 +22,25 @@ func RunComponents(instances ...core.IComponent) {
 func initConfig() {
 
 	//当前环境 开发、线上
-	core.EnvName = helper_os.GetEnvOrDefault(core.GamineEnv, core.Dev)
+	env := GetEnvName()
+	if env == "" {
+		SetEnvName(core.Dev)
+	}
 	color.Greenln(fmt.Sprintf("gamine设置环境：%s", core.EnvName))
 
-	//从环境变量中获取当前工作目录
-	if core.WorkDir == "" {
-		core.WorkDir = helper_os.GetEnv(core.GamineWorkerDir)
+	//切换工作目录
+	workDir := GetWorkDir()
+	if workDir == "" {
+		panic("工作目录为空，请设置")
+	}
+	if err := os.Chdir(workDir); err != nil {
+		panic(fmt.Sprintf("切换工作目录失败，%s", err))
 	}
 
-	//如果没有获取到，则使用系统工作目录
-	if core.WorkDir == "" {
-		core.WorkDir = helper_os.GetWdQuiet()
-		helper_os.SetEnvQuiet(core.GamineWorkerDir, core.WorkDir)
-		color.Greenln(fmt.Sprintf("gamine使用系统工作目录：%s", core.WorkDir))
-	} else {
-		color.Greenln(fmt.Sprintf("gamine从环境变量中获取到工作目录：%s", core.WorkDir))
-	}
+	color.Greenln(fmt.Sprintf("gamine已切换到到工作目录：%s", workDir))
 
 	//从工作目录加载应用配置文件
-	configPath := filepath.Join(core.WorkDir, fmt.Sprintf("gamine-%s.yml", core.EnvName))
+	configPath := filepath.Join(workDir, fmt.Sprintf("gamine-%s.yml", env))
 	color.Greenln(fmt.Sprintf("gamine从工作目录加载应用配置文件：%s", configPath))
 
 	if err := core.LoadConfigFile(configPath); err != nil {

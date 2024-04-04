@@ -4,6 +4,7 @@ import (
 	"io"
 	"os"
 	"os/signal"
+	"os/user"
 	"path/filepath"
 	"syscall"
 )
@@ -54,6 +55,11 @@ func CurrentExecutePath() (string, error) {
 	return filepath.Dir(dir), nil
 }
 
+// ChdirQuietly 安静的切换目录
+func ChdirQuietly(path string) {
+	_ = os.Chdir(path)
+}
+
 // RootPath 获取项目根路径 （示例）
 func RootPath() (string, error) {
 	dir, err := filepath.Abs("")
@@ -83,4 +89,22 @@ func WaitQuit() {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
+}
+
+// FolderExists 文件夹是否存在，或者是不是文件夹
+func FolderExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	if info == nil {
+		return false
+	}
+	return info.IsDir()
+}
+
+// GetHomeDir 获取系统home路径
+func GetHomeDir() (document string) {
+	u, _ := user.Current()
+	return u.HomeDir
 }

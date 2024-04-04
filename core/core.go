@@ -7,10 +7,8 @@ var (
 )
 
 const (
-	Dev             = "dev"
-	Prod            = "prod"
-	GamineEnv       = "gamine_env"
-	GamineWorkerDir = "gamine_worker_dir"
+	Dev  = "dev"
+	Prod = "prod"
 )
 
 type DeferHandle func()

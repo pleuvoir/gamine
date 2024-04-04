@@ -2,6 +2,8 @@
 
 ## 配置文件相关工具类
 
+- [yaml2go结构体在线小工具](https://old.printlove.cn/tools/yaml2go)
+
 ### ParseStruct2YamlString 将结构体转换为yml字符串   
 
 ```go

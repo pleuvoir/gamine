@@ -29,9 +29,36 @@ os_test.go:27: default-key-value
 
 ### 系统目录相关
 
+
+- ChdirQuietly 安静的切换目录
+
+**注意：**   切换工作目录后，后面获取路径都是以切换后的为基础，比如相对路径都会从当前切换的路径进行计算。。
+
+```go
+func TestChdirQuietly(t *testing.T) {
+    t.Log(GetWdQuiet())
+    ChdirQuietly("../helper_lang") //切换到上一级
+    t.Log(GetWdQuiet())
+    ChdirQuietly("../") //切换到上一级
+    t.Log(GetWdQuiet())
+    t.Log(RootPath())
+}
+```
+
+输出：
+
+
+```
+/Users/pleuvoir/dev/space/git/gamine/helper/helper_os
+/Users/pleuvoir/dev/space/git/gamine/helper/helper_lang
+/Users/pleuvoir/dev/space/git/gamine/helper
+/Users/pleuvoir/dev/space/git/gamine <nil>
+```
+
+
 - GetWdQuiet 安静的获取当前目录
 
-**注意：**   这个获取的实际上是`helper_os.go`文件所在的目录。因此，该函数的示例意义大于实际使用。
+**注意：**   这个获取的实际上是`helper_os.go`文件所在的目录。在不切换工作路径的情况下，该函数的示例意义大于实际使用。
 
 ```go
 
@@ -67,7 +94,7 @@ func TestCurrentPath(t *testing.T) {
 
 - RootPath 获取项目根路径
 
-**注意：**   这个获取的实际上是`helper_os.go`文件所在文件的的根目录。因此，该函数的示例意义大于实际使用。
+**注意：**   这个获取的实际上是`helper_os.go`文件所在文件的的根目录。在不切换工作路径的情况下，该函数的示例意义大于实际使用。
 
 
 ```go
@@ -87,7 +114,7 @@ func TestRootPath(t *testing.T) {
 
 获取失败时，返回原来输入的相对路径
 
-**注意：**   这个获取的实际上是以`helper_os.go`文件计算推导出的路径。因此，该函数的示例意义大于实际使用。
+**注意：**   这个获取的实际上是以`helper_os.go`文件计算推导出的路径。在不切换工作路径的情况下，该函数的示例意义大于实际使用。
 
 
 ```go
@@ -121,6 +148,37 @@ func TestFileExists(t *testing.T) {
 ```
 /Users/pleuvoir/dev/space/git/gamine/helper/helper_os/os.go
 true
+```
+
+
+- FolderExists 文件夹是否存在，或者是不是文件夹
+
+```go
+func TestFolderExists(t *testing.T) {
+    t.Log(FolderExists("../../"))
+}
+```
+
+输出：
+
+```
+true
+```
+
+
+- GetHomeDir 获取系统home路径
+
+```go
+func TestGetHomeDir(t *testing.T) {
+	t.Log(GetHomeDir())
+}
+
+```
+
+输出：
+
+```
+/Users/pleuvoir
 ```
 
 
