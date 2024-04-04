@@ -3,7 +3,7 @@ package restful
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/pleuvoir/gamine"
-	"github.com/pleuvoir/gamine/componment/log"
+	"github.com/pleuvoir/gamine/component/log"
 	"github.com/pleuvoir/gamine/helper/helper_config"
 	"net/http"
 	"os"
