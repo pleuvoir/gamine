@@ -3,6 +3,12 @@
 轻量级组件框架，封装组件以便快速使用，在整个工程中可以以单例的方式使用。
 
 
+## 安装
+
+```shell
+go get -u github.com/pleuvoir/gamine
+```
+
 ## 快速开始
 
 - [基础](https://github.com/pleuvoir/gamine/blob/main/docs/basic.md)

@@ -4,11 +4,41 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pleuvoir/gamine"
 	"github.com/pleuvoir/gamine/componment/log"
+	"github.com/pleuvoir/gamine/helper/helper_config"
 	"net/http"
 	"os"
 	"path/filepath"
 	"testing"
 )
+
+type AppConfig struct {
+	App struct {
+		Port string `yaml:"Port"`
+	} `yaml:"app"`
+}
+
+func TestServerWithConf(t *testing.T) {
+
+	path := "/Users/pleuvoir/dev/space/git/gamine/test/restful.yml"
+
+	app := &AppConfig{}
+	helper_config.ParseYamlStringFromPath2Struct(path, app)
+
+	server := NewRestServer(app.App.Port)
+	server.WithServerStartedListener(func(engine *Instance) {
+		t.Log("启动了" + engine.Port)
+	})
+	server.WithCors()
+	server.WithUseRequestLog(log.GetDefault())
+	server.WithGinConfig(func(e *gin.Engine) {
+		index := e.Group("/")
+		{
+			indexController := NewIndexController()
+			index.GET("/", indexController.Index)
+		}
+	})
+	server.Run()
+}
 
 func TestServer(t *testing.T) {
 	gamine.SetWorkDir("../../test/")
@@ -16,7 +46,7 @@ func TestServer(t *testing.T) {
 	gamine.InstallComponents(&log.Instance{})
 	server := NewRestServer("8001")
 	server.WithServerStartedListener(func(engine *Instance) {
-		t.Log("启动了" + engine.port)
+		t.Log("启动了" + engine.Port)
 	})
 	server.WithCors()
 	server.WithUseRequestLog(log.GetDefault())

@@ -45,7 +45,7 @@ type Instance struct {
 	//服务启动后调用的监听程序
 	serverStartedListener ServerStartedListener
 	// 端口号
-	port string
+	Port string
 	// 服务状态
 	State ServerState
 }
@@ -55,7 +55,7 @@ func NewRestServer(port string) *Instance {
 		startedChan:        make(chan bool, 1),
 		testPortDelayed:    time.Second * 2,
 		testPortRetryTimes: 3,
-		port:               port,
+		Port:               port,
 	}
 	gin.SetMode(gin.ReleaseMode)
 	r.Gin = gin.New()
@@ -113,7 +113,7 @@ func (e *Instance) GetName() string {
 
 func (e *Instance) Run() error {
 	e.State = ServerStarting
-	serv := &http.Server{Addr: ":" + e.port, Handler: e.Gin}
+	serv := &http.Server{Addr: ":" + e.Port, Handler: e.Gin}
 	e.httpServer = serv
 	e.startServer(serv) //异步启动
 	e.listenServerStarted()
@@ -145,7 +145,7 @@ func (e *Instance) listenServerStarted() {
 		<-e.startedChan
 		if e.testPortRetry() {
 			e.State = ServerStarted
-			color.Greenln(fmt.Sprintf("restful服务已启动 @%s", e.port))
+			color.Greenln(fmt.Sprintf("restful服务已启动 @%s", e.Port))
 			e.serverStartedListener(e)
 		}
 	}()
@@ -165,7 +165,7 @@ func (e *Instance) testPortRetry() bool {
 
 // testPort 检测一次http服务监听的端口
 func (e *Instance) testPort() bool {
-	conn, err := net.DialTimeout("tcp", ":"+e.port, time.Millisecond*500)
+	conn, err := net.DialTimeout("tcp", ":"+e.Port, time.Millisecond*500)
 	defer helper_os.CloseQuietly(conn)
 	return err == nil
 }

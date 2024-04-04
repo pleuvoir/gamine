@@ -11,7 +11,6 @@
 在生产环境下，端口应当是传入的，建议使用获取配置文件的形式进行读取。
 
 
-
 ```go
 func TestServer(t *testing.T) {
 	gamine.SetWorkDir("/Users/pleuvoir/dev/space/git/gamine/test")
@@ -46,3 +45,37 @@ restful服务已启动 @8001
 ```
 
 
+
+或者读取配置文件：
+
+```go
+
+type AppConfig struct {
+    App struct {
+    Port string `yaml:"port"`
+    } `yaml:"app"`
+}
+
+func TestServerWithConf(t *testing.T) {
+
+	path := "/Users/pleuvoir/dev/space/git/gamine/test/restful.yml"
+
+	app := &AppConfig{}
+	helper_config.ParseYamlStringFromPath2Struct(path, app)
+
+	server := NewRestServer(app.App.Port)
+	server.WithServerStartedListener(func(engine *Instance) {
+		t.Log("启动了" + engine.port)
+	})
+	server.WithCors()
+	server.WithUseRequestLog(log.GetDefault())
+	server.WithGinConfig(func(e *gin.Engine) {
+		index := e.Group("/")
+		{
+			indexController := NewIndexController()
+			index.GET("/", indexController.Index)
+		}
+	})
+	server.Run()
+}
+```
