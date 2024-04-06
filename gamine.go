@@ -51,8 +51,8 @@ func loadConfig() map[string]any {
 	configManager.AddConfigPath(".")
 	configManager.AddConfigPath("./bin")
 	configManager.AddConfigPath("../bin")
-	configManager.AddConfigPath("./config")
-	configManager.AddConfigPath("../config")
+	configManager.AddConfigPath("./configs")
+	configManager.AddConfigPath("../configs")
 
 	if err := configManager.LoadConfigFile(); err != nil {
 		color.Redln(fmt.Sprintf("gamine从工作目录加载配置文件失败: %s", err))
