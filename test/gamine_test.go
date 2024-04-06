@@ -9,6 +9,7 @@ import (
 )
 
 func TestRun(t *testing.T) {
+	gamine.SetWorkDir(".")
 	gamine.InstallComponents(&hello.Instance{})
 	instance := hello.Get()
 	t.Logf(fmt.Sprintf("%+v", instance))

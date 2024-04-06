@@ -108,3 +108,18 @@ func GetHomeDir() (document string) {
 	u, _ := user.Current()
 	return u.HomeDir
 }
+
+// NormalizePath 将路径转换为绝对路径，如果路径是相对路径的话
+func NormalizePath(path string) (string, error) {
+	// 如果路径是绝对路径，直接返回
+	if filepath.IsAbs(path) {
+		return path, nil
+	}
+	// 获取当前工作目录
+	workDir, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
+	// 将相对路径转换为绝对路径
+	return filepath.Join(workDir, path), nil
+}

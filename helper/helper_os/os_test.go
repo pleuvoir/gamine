@@ -87,3 +87,7 @@ func TestFolderExists(t *testing.T) {
 func TestGetHomeDir(t *testing.T) {
 	t.Log(GetHomeDir())
 }
+
+func TestNormalizePath(t *testing.T) {
+	t.Log(NormalizePath("../"))
+}

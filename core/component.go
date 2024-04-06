@@ -1,6 +1,7 @@
 package core
 
 import (
+	"github.com/pleuvoir/gamine/helper/helper_config"
 	"gopkg.in/yaml.v3"
 )
 
@@ -11,15 +12,17 @@ type IComponent interface {
 
 var components = make(map[string]IComponent)
 
-func LoadComponents(instances ...IComponent) {
+func LoadComponents(componentConf map[string]any, instances ...IComponent) {
 	for _, c := range instances {
-		LoadComponent(c)
+		if conf, ok := componentConf[c.GetName()]; ok {
+			LoadComponent(c, conf)
+		}
 	}
 }
 
 // LoadComponent 加载组件，外部可以传入组件空结构体，会从配置文件中自动映射到组件中
-func LoadComponent(c IComponent) {
-	if err := InjectComponentConfig(c.GetName(), c); err != nil {
+func LoadComponent(c IComponent, conf any) {
+	if err := helper_config.InjectAnotherStructByYaml(conf, c); err != nil {
 		panic(err)
 	}
 	if err := c.Run(); err != nil {

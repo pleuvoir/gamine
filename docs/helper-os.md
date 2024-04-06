@@ -29,6 +29,22 @@ os_test.go:27: default-key-value
 
 ### 系统目录相关
 
+- NormalizePath 将路径转换为绝对路径，如果路径是相对路径的话
+
+
+```go
+func TestNormalizePath(t *testing.T) {
+	t.Log(NormalizePath("../"))
+}
+```
+
+
+输出：
+
+
+```
+/Users/pleuvoir/dev/space/git/gamine/helper <nil>
+```
 
 - ChdirQuietly 安静的切换目录
 

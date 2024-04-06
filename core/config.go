@@ -1,31 +1,51 @@
 package core
 
 import (
-	"errors"
 	"fmt"
+	"github.com/gookit/color"
 	"github.com/pleuvoir/gamine/helper/helper_config"
+	"github.com/pleuvoir/gamine/helper/helper_os"
+	"path/filepath"
 )
 
-var componentConfig = make(map[string]any)
-
-// LoadConfigFile 加载组件配置文件
-func LoadConfigFile(path string) error {
-	err := helper_config.ParseYamlStringFromPath2Struct(path, &componentConfig)
-	if err != nil {
-		return err
-	}
-	return nil
+type ConfigManager struct {
+	fileName    string
+	fileExt     string
+	searchPaths []string
+	config      map[string]any `yaml:",inline"`
 }
 
-// InjectComponentConfig 注入组件配置文件
-func InjectComponentConfig(name string, conf any) error {
-	if obj, ok := componentConfig[name]; ok {
-		err := helper_config.InjectAnotherStructByYaml(obj, conf)
-		if err != nil {
-			return err
-		}
-		return nil
-	} else {
-		return errors.New(fmt.Sprintf("component config not find, name:%s,conf:%+v", name, conf))
+func NewConfigManager() *ConfigManager {
+	return &ConfigManager{
+		config: make(map[string]any),
 	}
+}
+
+func (cm *ConfigManager) GetConfig() map[string]any {
+	return cm.config
+}
+
+func (cm *ConfigManager) SetConfigName(name string) {
+	cm.fileName = name
+}
+
+func (cm *ConfigManager) SetConfigType(ext string) {
+	cm.fileExt = ext
+}
+
+func (cm *ConfigManager) AddConfigPath(path string) {
+	cm.searchPaths = append(cm.searchPaths, path)
+}
+
+func (cm *ConfigManager) LoadConfigFile() error {
+	for _, dir := range cm.searchPaths {
+		filePath := filepath.Join(dir, fmt.Sprintf("%s.%s", cm.fileName, cm.fileExt))
+		normalizePath, _ := helper_os.NormalizePath(filePath)
+		color.Warnln(fmt.Sprintf("尝试加载配置文件：%s", normalizePath))
+		if err := helper_config.ParseYamlStringFromPath2Struct(normalizePath, &cm.config); err == nil {
+			color.Greenln("配置文件加载成功")
+			return nil
+		}
+	}
+	return fmt.Errorf("配置文件未找到")
 }
