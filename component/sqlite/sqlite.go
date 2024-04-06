@@ -3,6 +3,7 @@ package sqlite
 import (
 	"fmt"
 	"github.com/gookit/color"
+	"github.com/pleuvoir/gamine/helper/helper_os"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -21,9 +22,14 @@ func (i *Instance) GetName() string {
 
 func (i *Instance) Run() error {
 	var err error
-	db, err = gorm.Open(sqlite.Open(i.Path), &gorm.Config{})
+	normalizePath, err := helper_os.NormalizePath(i.Path)
 	if err != nil {
 		color.Redln(fmt.Sprintf("sqlite打开失败，路径：%s", i.Path))
+		return err
+	}
+	db, err = gorm.Open(sqlite.Open(normalizePath), &gorm.Config{})
+	if err != nil {
+		color.Redln(fmt.Sprintf("sqlite打开失败，路径：%s", normalizePath))
 		return err
 	}
 	return nil
