@@ -10,7 +10,7 @@
 // 用这个测试 https://amritb.github.io/socketio-client-tool/v1/  ws://localhost:8000
 func TestNewSocketServer(t *testing.T) {
 
-	goSocketIO := New("8000")
+	goSocketIO := New(8000)
 	_ = goSocketIO.WithRequest(func(msg RequestMessage) ResponseMessage {
 		t.Log(fmt.Sprintf("%+v", msg))
 		return ResponseMessage{Data: "hello world"}
